@@ -15,15 +15,16 @@
             align-items: center;
             overflow: hidden;
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
-            background-size: 1800% 1800%;
-            animation: rainbow 12s ease infinite;
+            /* मोबाईलवर चालणारा स्मूथ रेंबो बॅकग्राउंड */
+            background: linear-gradient(-45deg, #ff2400, #dd00f3, #1ddde8, #1de840);
+            background-size: 400% 400%;
+            animation: rainbow 10s ease infinite;
         }
 
-        @keyframes rainbow { 
-            0%{background-position:0% 82%}
-            50%{background-position:100% 19%}
-            100%{background-position:0% 82%}
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .card {
@@ -42,7 +43,18 @@
             justify-content: center;
         }
 
-        .made-by { font-size: 10px; color: #ff4d6d; letter-spacing: 2px; margin-bottom: 20px; font-weight: bold; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); }
+        .made-by { 
+            font-size: 10px; 
+            color: #ff4d6d; 
+            letter-spacing: 2px; 
+            margin-bottom: 20px; 
+            font-weight: bold; 
+            position: absolute; 
+            top: 20px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+        }
+
         h2 { color: #333; font-size: 20px; line-height: 1.5; margin-bottom: 40px; }
         .highlight { color: #ff4d6d; font-family: 'Great Vibes', cursive; font-size: 32px; display: block; margin-top: 10px; }
         
@@ -64,11 +76,16 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.2s ease;
-            touch-action: manipulation; /* मोबाईलवर झूम टाळण्यासाठी */
+            touch-action: manipulation;
         }
 
         #yesBtn { background: #ff4d6d; color: white; box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4); }
-        #noBtn { background: #555; color: white; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); z-index: 100; }
+        #noBtn { 
+            background: #555; 
+            color: white; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+            z-index: 100;
+        }
         
         .hidden { display: none; }
         .big-heart { font-size: 80px; animation: beat 0.8s infinite alternate; }
@@ -106,18 +123,17 @@
         function moveButton() {
             noBtn.style.position = 'fixed'; 
             
-            // स्क्रीनच्या कडेला बटण चिकटू नये म्हणून सुरक्षित अंतर (Padding)
-            const padding = 50; 
-            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            // मोबाईल स्क्रीनच्या हिशोबाने सुरक्षित मार्जिन
+            const margin = 60; 
+            const maxX = window.innerWidth - noBtn.offsetWidth - margin;
+            const maxY = window.innerHeight - noBtn.offsetHeight - margin;
             
-            // नवीन रँडम पोझिशन
             let randomX = Math.floor(Math.random() * maxX);
             let randomY = Math.floor(Math.random() * maxY);
 
-            // बटण नेहमी स्क्रीनच्या आत राहील याची खात्री करणे
-            randomX = Math.max(padding, randomX);
-            randomY = Math.max(padding, randomY);
+            // बटण स्क्रीनच्या बाहेर जाणार नाही याची खात्री
+            randomX = Math.max(margin, randomX);
+            randomY = Math.max(margin, randomY);
             
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
