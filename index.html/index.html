@@ -11,11 +11,11 @@
         body {
             height: 100vh;
             display: flex;
+            flex-direction: column; /* कार्ड आणि ब्रँडिंग एकाखाली एक येण्यासाठी */
             justify-content: center;
             align-items: center;
             overflow: hidden;
             font-family: 'Poppins', sans-serif;
-            /* मोबाईलवर चालणारा स्मूथ रेंबो बॅकग्राउंड */
             background: linear-gradient(-45deg, #ff2400, #dd00f3, #1ddde8, #1de840);
             background-size: 400% 400%;
             animation: rainbow 10s ease infinite;
@@ -43,16 +43,15 @@
             justify-content: center;
         }
 
+        /* ब्रँडिंग कार्डच्या खाली नेण्यासाठी नवीन स्टाइल */
         .made-by { 
-            font-size: 10px; 
-            color: #ff4d6d; 
+            font-size: 12px; 
+            color: white; 
             letter-spacing: 2px; 
-            margin-bottom: 20px; 
-            font-weight: bold; 
-            position: absolute; 
-            top: 20px; 
-            left: 50%; 
-            transform: translateX(-50%); 
+            margin-top: 20px; /* कार्डपासून अंतर */
+            font-weight: bold;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+            z-index: 10;
         }
 
         h2 { color: #333; font-size: 20px; line-height: 1.5; margin-bottom: 40px; }
@@ -95,7 +94,6 @@
 <body>
 
     <div class="card" id="mainCard">
-        <p class="made-by">Created by Crown_JD</p>
         <div id="proposalContent">
             <h2>I've been waiting for the right time to ask... 
                 <span class="highlight">Will you be mine? ❤️</span>
@@ -115,6 +113,8 @@
         </div>
     </div>
 
+    <p class="made-by">Created by Crown_JD</p>
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
     <script>
@@ -122,8 +122,6 @@
 
         function moveButton() {
             noBtn.style.position = 'fixed'; 
-            
-            // मोबाईल स्क्रीनच्या हिशोबाने सुरक्षित मार्जिन
             const margin = 60; 
             const maxX = window.innerWidth - noBtn.offsetWidth - margin;
             const maxY = window.innerHeight - noBtn.offsetHeight - margin;
@@ -131,7 +129,6 @@
             let randomX = Math.floor(Math.random() * maxX);
             let randomY = Math.floor(Math.random() * maxY);
 
-            // बटण स्क्रीनच्या बाहेर जाणार नाही याची खात्री
             randomX = Math.max(margin, randomX);
             randomY = Math.max(margin, randomY);
             
