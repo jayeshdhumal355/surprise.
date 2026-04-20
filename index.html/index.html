@@ -64,10 +64,11 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.2s ease;
+            touch-action: manipulation; /* मोबाईलवर झूम टाळण्यासाठी */
         }
 
         #yesBtn { background: #ff4d6d; color: white; box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4); }
-        #noBtn { background: #555; color: white; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+        #noBtn { background: #555; color: white; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); z-index: 100; }
         
         .hidden { display: none; }
         .big-heart { font-size: 80px; animation: beat 0.8s infinite alternate; }
@@ -84,7 +85,7 @@
             </h2>
             <div class="btn-container" id="btnWrapper">
                 <button id="yesBtn" onclick="celebrate()">Yes</button>
-                <button id="noBtn" onmouseover="moveButton()">No</button>
+                <button id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">No</button>
             </div>
         </div>
 
@@ -104,11 +105,19 @@
 
         function moveButton() {
             noBtn.style.position = 'fixed'; 
-            const maxX = window.innerWidth - noBtn.offsetWidth - 50;
-            const maxY = window.innerHeight - noBtn.offsetHeight - 50;
             
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
+            // स्क्रीनच्या कडेला बटण चिकटू नये म्हणून सुरक्षित अंतर (Padding)
+            const padding = 50; 
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            
+            // नवीन रँडम पोझिशन
+            let randomX = Math.floor(Math.random() * maxX);
+            let randomY = Math.floor(Math.random() * maxY);
+
+            // बटण नेहमी स्क्रीनच्या आत राहील याची खात्री करणे
+            randomX = Math.max(padding, randomX);
+            randomY = Math.max(padding, randomY);
             
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
